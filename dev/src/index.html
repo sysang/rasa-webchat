@@ -4,10 +4,12 @@
     <title>Botfront - Web Chat</title>
   <script>
       const load = () => {
-        if (!WebChat) setTimeout(load, 100);
-        if (WebChat) WebChat.default({
+        if (!window.WebChat) setTimeout(load, 100);
+        if (window.WebChat) WebChat.default({
           customData:{language:"en"},
-          socketUrl:"http://localhost:5005",
+          socketUrl:"http://rasachatbot.sysang",
+          <!-- socketUrl:"http://192.168.58.7:3000/cable", -->
+          <!-- protocol: 'sockjs', -->
           withRules: true,
         });
       }
