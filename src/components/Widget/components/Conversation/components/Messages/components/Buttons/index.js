@@ -40,8 +40,10 @@ class Buttons extends PureComponent {
   }
 
   renderButtons(message, buttons, persit) {
-    const { isLast, linkTarget, separateButtons
-    } = this.props;
+    // EDITED: to make buttons alway active
+    // const { isLast, linkTarget, separateButtons } = this.props;
+    const { linkTarget, separateButtons } = this.props;
+    const isLast = true
     const { userTextColor, userBackgroundColor } = this.context;
     const buttonStyle = {
       color: userTextColor,
