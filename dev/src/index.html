@@ -7,10 +7,13 @@
         if (!window.WebChat) setTimeout(load, 100);
         if (window.WebChat) WebChat.default({
           customData:{language:"en"},
-          socketUrl:"http://rasachatbot.sysang",
-          <!-- socketUrl:"http://192.168.58.7:3000/cable", -->
-          <!-- protocol: 'sockjs', -->
+          socketUrl:"ws://192.168.58.7:3000/cable",
+          protocol: 'sockcw',
           withRules: true,
+          protocolOptions:{
+            inboxIdentifier: "oqaHvF8Pn6jFig9mhxE4YiD5",
+            chatwootAPIUrl: "http://192.168.58.7:3000/public/api/v1/",
+          },
         });
       }
       setTimeout(load, 200);

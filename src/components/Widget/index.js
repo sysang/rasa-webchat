@@ -376,6 +376,7 @@ class Widget extends Component {
       // Request a session from server
       socket.on('connect', () => {
         const localId = this.getSessionId();
+        console.log('socket.emit `session_request`')
         socket.emit('session_request', { session_id: localId });
       });
 
