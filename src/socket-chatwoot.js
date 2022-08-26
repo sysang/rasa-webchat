@@ -59,7 +59,7 @@ export default (function (socketUrl, customData, _path, options) {
 
     // existent risk is pubsub_token (session_id) has been changed while localStorage still stores the invalid one
     const handle_not_confirming = (() => {
-      const WAITING_THRESHOLD = 5;
+      const WAITING_THRESHOLD = 3;
       // only execute once
       var is_triggered = false;
       // count times of ping

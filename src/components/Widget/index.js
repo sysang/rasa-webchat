@@ -396,8 +396,8 @@ class Widget extends Component {
         start a new session.
         */
         const localId = this.getSessionId();
-        console.log('check session_id: ', remoteId, localId)
-        if (localId && localId !== remoteId) {
+        console.log('check session_id, remoteId - localId: ', remoteId, localId)
+        if (localId !== remoteId) {
           clearCachedConversation(storage, SESSION_NAME)
 
           // Store the received session_id to storage
