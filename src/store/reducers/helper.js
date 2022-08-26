@@ -127,6 +127,23 @@ export function storeLocalSession(storage, key, sid) {
   storage.setItem(key, JSON.stringify(session));
 }
 
+export function clearCachedConversation(storage, key) {
+  // Attempt to store session id to local storage
+  const cachedSession = storage.getItem(key);
+  let session;
+  if (!cachedSession) {
+    return;
+  }
+  // Found exisiting session in storage
+  const parsedSession = JSON.parse(cachedSession);
+  session = {
+    ...parsedSession,
+    conversation: []
+  };
+  // Store updated session to storage
+  storage.setItem(key, JSON.stringify(session));
+}
+
 export const storeMessageTo = storage => (conversation) => {
   // Store a conversation List to storage
   const localSession = getLocalSession(storage, SESSION_NAME);

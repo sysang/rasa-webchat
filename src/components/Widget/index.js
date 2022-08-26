@@ -37,7 +37,7 @@ import { safeQuerySelectorAll } from 'utils/dom';
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
 import { isVideo, isImage, isButtons, isText, isCarousel } from './msgProcessor';
 import WidgetLayout from './layout';
-import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
+import { storeLocalSession, getLocalSession, clearCachedConversation } from '../../store/reducers/helper';
 
 class Widget extends Component {
   constructor(props) {
@@ -396,10 +396,11 @@ class Widget extends Component {
         start a new session.
         */
         const localId = this.getSessionId();
-        if (localId !== remoteId) {
-          // storage.clear();
-          // Store the received session_id to storage
+        console.log('check session_id: ', remoteId, localId)
+        if (localId && localId !== remoteId) {
+          clearCachedConversation(storage, SESSION_NAME)
 
+          // Store the received session_id to storage
           storeLocalSession(storage, SESSION_NAME, remoteId);
           dispatch(pullSession());
           if (sendInitPayload) {
