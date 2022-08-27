@@ -99,6 +99,24 @@ export default (function (socketUrl, customData, _path, options) {
       socketProxy.customData = customData;
     };
 
+    const handle_message = (data) => {
+      const sender_type = data.sender_type
+      if (sender_type === 'AgentBot'){
+        const agentMessage = JSON.parse(data.content);
+        if (agentMessage instanceof Array) {
+          agentMessage.forEach(message => socketProxy.emit('bot_uttered', message))
+        } else {
+          socketProxy.emit('bot_uttered', agentMessage);
+        }
+      } else {
+        if(data.message_type === 1)
+        {
+          const message = {text: data.content}
+          socketProxy.emit('bot_uttered', message);
+        }
+      }
+    }
+
     // most important part - incoming messages
     socket.onmessage = (message) => {
         // try to parse JSON message. Because we know that the server always returns
@@ -120,11 +138,7 @@ export default (function (socketUrl, customData, _path, options) {
           handle_not_confirming(true)
         }else if (json.message.event === 'message.created') {
           console.log('here comes message', json);
-          if(json.message.data.message_type === 1)
-          {
-            const message = {text: json.message.data.content}
-            socketProxy.emit('bot_uttered', message);
-          }
+          handle_message(json.message.data)
         } else {
           console.log('Hmm..., I\'ve never seen JSON like this: ', json);
         }
